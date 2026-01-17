@@ -18,15 +18,36 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiNextdotjs,
+  SiFirebase,
+  SiRedis,
+  SiSupabase,
 } from "react-icons/si";
+
+export const skills = [
+  { name: "React", icon: FaReact },
+  { name: "HTML5", icon: FaHtml5 },
+  { name: "CSS3", icon: FaCss3Alt },
+  { name: "JavaScript", icon: FaJs },
+  { name: "Tailwind CSS", icon: SiTailwindcss },
+  { name: "TypeScript", icon: SiTypescript },
+  { name: "Next.js", icon: SiNextdotjs },
+  { name: "MongoDB", icon: SiMongodb },
+  { name: "PostgreSQL", icon: SiPostgresql },
+  { name: "Firebase", icon: SiFirebase },
+  { name: "Node.js", icon: FaNodeJs },
+  { name: "Python", icon: FaPython },
+  { name: "Git", icon: FaGitAlt },
+  { name: "Docker", icon: FaDocker },
+  { name: "Figma", icon: FaFigma },
+];
 
 export const personalInfo = {
   name: "Abu Rahian",
-  designation: "Full Stack Developer",
+  designation: "Software Engineer | Full Stack Developer",
   introduction:
-    "I am a passionate developer with a knack for building beautiful and functional web applications. My journey started with a curiosity about how the internet works, and it has evolved into a career where I solve complex problems with code.",
+    "I architect and build scalable, high-performance web applications with a focus on seamless user experiences and clean, maintainable code.",
   about:
-    "I specialize in building scalable web applications using modern technologies. I enjoy working on both the frontend and backend, ensuring a seamless user experience. When I'm not coding, you can find me hiking, reading sci-fi novels, or experimenting with new cooking recipes.",
+    "Specializing in the MERN stack and modern frontend architectures, I transform complex requirements into robust digital solutions. My expertise spans full-cycle development—from database design to interactive UI implementation—ensuring performance, security, and scalability at every layer.",
   email: "aburaihan363@gmail.com",
   phone: "01957222516",
   whatsapp: "01304298318",
@@ -37,74 +58,35 @@ export const personalInfo = {
     facebook: "https://facebook.com",
   },
   resumeUrl:
-    "https://drive.google.com/file/d/1vnl-vlLHIjP9uGH0Z0W7JmaRhiDkNhqU/view",
+    "https://drive.google.com/file/d/1B7heEw8MNFwFegjuzTVP9JBkzjI7tE52/view?usp=sharing",
 };
 
-export const skills = [
-  {
-    category: "Frontend",
-    items: [
-      { name: "React", icon: FaReact, level: 90 },
-      { name: "HTML5", icon: FaHtml5, level: 95 },
-      { name: "CSS3", icon: FaCss3Alt, level: 90 },
-      { name: "JavaScript", icon: FaJs, level: 85 },
-      { name: "Tailwind CSS", icon: SiTailwindcss, level: 90 },
-      { name: "TypeScript", icon: SiTypescript, level: 80 },
-      { name: "Next.js", icon: SiNextdotjs, level: 85 },
-    ],
-  },
-  {
-    category: "Backend",
-    items: [
-      { name: "Node.js", icon: FaNodeJs, level: 80 },
-      { name: "Python", icon: FaPython, level: 75 },
-      { name: "Django", icon: SiDjango, level: 70 },
-      { name: "Ruby on Rails", icon: SiRubyonrails, level: 65 },
-    ],
-  },
-  {
-    category: "Database",
-    items: [
-      { name: "MongoDB", icon: SiMongodb, level: 80 },
-      { name: "PostgreSQL", icon: SiPostgresql, level: 75 },
-    ],
-  },
-  {
-    category: "Tools",
-    items: [
-      { name: "Git", icon: FaGitAlt, level: 90 },
-      { name: "Docker", icon: FaDocker, level: 70 },
-      { name: "AWS", icon: FaAws, level: 60 },
-      { name: "Figma", icon: FaFigma, level: 75 },
-    ],
-  },
-];
 
 export const education = [
   {
-    degree: "Diploma Engineering In Electronics",
+    degree: "Diploma in Electronics Engineering",
     institution: "Satkhira Polytechnic Institute",
     duration: "2017 - 2022",
     description:
-      "Specialized in Electronics and Communication Engineering with hands-on experience in circuit design and embedded systems.",
+      "Foundation in circuit design, embedded systems, and logical problem-solving capable of translating hardware constraints into efficient software logic.",
   },
 ];
 
 export const experience = [
   {
-    role: "Junior Web Developer (Self-taught)",
-    company: "Personal Projects & Programming Hero Course",
-    duration: "July 2025 - Running",
+    role: "Frontend Developer (React)",
+    company: "Personal Projects & Advanced Training",
+    duration: "July 2025 - Present",
     description:
-      "Completed a comprehensive 6-month course in web development, focusing on front-end and back-end development. Built several personal projects, including a portfolio website, e-commerce mock-up, and a blog platform, applying modern web technologies.",
+      "Developed and deployed multiple full-stack applications using React, Node.js, and MongoDB. Implemented secure authentication, real-time data synchronization, and responsive UI designs adhering to modern web standards.",
     technologies: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
+      "React.js",
       "Node.js",
       "MongoDB",
-      "Express.js",
+      "Express/NestJS",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "TypeScript",
     ],
   },
 ];
@@ -112,48 +94,46 @@ export const experience = [
 export const projects = [
   {
     id: 1,
-    title: "SkillSwap App",
+    title: "SkillSwap Platform",
     image: "https://i.ibb.co/gFDQ1tTF/Screenshot-2025-12-06-144250.png",
     description:
-      "SkillSwap is a web application that allows users to discover, book, and offer skill-based learning sessions. It connects learners with skilled providers across various categories, making learning accessible and convenient.",
-    techStack: ["React", "Firebase", "Express", "Node.js", "MongoDB"],
+      "A comprehensive skill-sharing marketplace connecting learners with experts. Features real-time booking, secure payment integration, and dynamic user dashboards.",
+    techStack: ["React", "Node.js", "MongoDB", "Express", "Firebase"],
     liveLink: "https://skillswap-7nl.pages.dev/",
     repoLink: "https://github.com/aburahian/SkillSwap",
     challenges:
-      "Implementing secure payment gateway integration and real-time inventory updates.",
+      "Architecting a secure multi-user role system (Admin, User, Instructor) and implementing real-time session management.",
     futurePlans:
-      "Adding AI-based product recommendations and dark mode support.",
+      "Integration of WebRTC for in-app video calls and AI-driven course recommendations.",
   },
 
   {
     id: 2,
-    title: "ARTIFY – A Creative Artwork Showcase Platform",
+    title: "ARTIFY Gallery",
     image: "https://i.ibb.co/KPSKKtW/Screenshot-2025-12-06-145908.png",
     description:
-      "A creative platform for artists to showcase their artwork, explore galleries, and discover inspiration from other creators.",
-    techStack: ["React", "Next.js", "Tailwind CSS", "Node.js"],
+      "A high-performance digital art exhibition platform with optimized asset delivery and interactive gallery layouts.",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     liveLink: "https://cheerful-cat-006046.netlify.app/",
     repoLink: "https://github.com/aburahian/artify-clinte-site",
     challenges:
-      "Optimizing image loading for large artworks and creating a smooth, responsive gallery experience across devices.",
+      "Implementing lazy-loading for heavy image assets to maintain high Core Web Vitals scores.",
     futurePlans:
-      "Adding user profiles, search & filter functionality, and social sharing features for artwork.",
+      "Adding NFT minting capabilities and social engagement features.",
   },
 
   {
     id: 3,
-    title: "Raw Thoughts",
+    title: "Raw Thoughts Blog",
     image: "https://i.ibb.co/VcBkddbd/Screenshot-2025-12-06-144918.png",
     description:
-      "A Next.js blog platform where I share thoughts, tutorials, and updates with SSR and dynamic content fetching.",
-    techStack: ["Next.js", "React Hooks", "Apollo", "Express"],
+      "A dynamic content publishing platform utilizing Server-Side Rendering (SSR) for superior SEO and performance.",
+    techStack: ["Next.js", "GraphQL", "Apollo Client", "PostgreSQL"],
     liveLink: "https://raw-thoughts-client.vercel.app/",
     repoLink: "https://github.com/aburahian/raw-thoughts--client",
     challenges:
-      "Implementing server-side rendering, GraphQL data fetching, and dynamic routing for posts.",
+      "Optimizing data fetching strategies with GraphQL to reduce network overhead.",
     futurePlans:
-      "Adding commenting, search functionality, and authentication for users.",
+      "Implementing a headless CMS backend and rich-text editing features.",
   },
-
-  // ---- Extra 3 Projects You Asked For ----
 ];

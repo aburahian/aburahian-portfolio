@@ -8,147 +8,106 @@ import { FaArrowRight } from "react-icons/fa";
 gsap.registerPlugin(ScrollTrigger);
 
 const ProjectsShowcase = () => {
-  const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
-  // use `projects` from data file
-  const projectList = projects;
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      // Filter out null refs just in case
-      const validCards = cardsRef.current.filter(card => card !== null);
-
-      if (validCards.length > 0) {
-        // Set initial state to avoid FOUC
-        gsap.set(validCards, { y: 80, opacity: 0, scale: 0.9 });
-
-        // Animate to final state
-        gsap.to(validCards, {
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            end: "bottom 20%",
-            toggleActions: "play none none none", // Play once and stay
-          },
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.2, // Increased stagger slightly
-          ease: "back.out(1.2)",
-        });
-      }
-    }, sectionRef);
-
-    // Refresh ScrollTrigger to ensure positions are correct after layout updates
-    ScrollTrigger.refresh();
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleCardHover = (index, isHovering) => {
-    gsap.to(cardsRef.current[index], {
-      y: isHovering ? -10 : 0,
-      scale: isHovering ? 1.02 : 1,
-      duration: 0.3,
-      ease: "power2.out",
-    });
-  };
-
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="py-20 bg-slate-50 dark:bg-slate-800"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="relative section-padding overflow-hidden">
+      {/* Background Decor */}
+      <div className="glow-mesh opacity-30"></div>
+      <div className="ghost-text left-20 bottom-10 opacity-10 uppercase">Works</div>
+
+      <div className="container mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-4">
-            Featured Projects
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">
+            Featured <span className="text-gradient">Projects</span>
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+          <div className="w-16 h-1.5 bg-primary rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {!projectList ? (
-            <>Loading ...</>
-          ) : (
-            projectList.map((project, index) => (
-              <div
-                key={project.id}
-                ref={(el) => (cardsRef.current[index] = el)}
-                onMouseEnter={() => handleCardHover(index, true)}
-                onMouseLeave={() => handleCardHover(index, false)}
-                className="group cursor-pointer bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-lg transition-all duration-300"
-              >
-                {/* Project Image */}
-                <div className="relative overflow-hidden h-48">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group"
+            >
+              <div className="bento-card overflow-hidden h-full flex flex-col group-hover:bg-white/5 transition-all duration-500">
+                {/* Image Container */}
+                <div className="relative h-64 overflow-hidden">
                   <img
                     src={project.image || "/images/placeholder.png"}
                     alt={project.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg-dark/80 to-transparent"></div>
 
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <Link
-                      to={`/project/${project.id}`}
-                      className="px-6 py-2 bg-white text-slate-900 rounded-full font-medium transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                    >
-                      View Details
-                    </Link>
-                  </div>
+                  {/* Floating Action Link */}
+                  <Link
+                    to={`/project/${project.id}`}
+                    className="absolute bottom-6 right-6 w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 shadow-lg shadow-primary/20"
+                  >
+                    <span className="material-symbols-outlined font-black">arrow_outward</span>
+                  </Link>
                 </div>
 
-                {/* Text Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                {/* Content */}
+                <div className="p-8 flex-1 flex flex-col">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.techStack.slice(0, 3).map((tech, idx) => (
+                      <span key={idx} className="text-[10px] font-black text-primary uppercase tracking-widest bg-primary/10 px-2 py-1 rounded">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h3 className="text-2xl font-black text-white mb-3 tracking-tight group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
 
-                  <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+                  <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {Array.isArray(project.techStack) &&
-                      project.techStack.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-
-                    {Array.isArray(project.techStack) &&
-                      project.techStack.length > 3 && (
-                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
-                          +{project.techStack.length - 3}
-                        </span>
-                      )}
+                  <div className="mt-auto pt-6 border-t border-white/5">
+                    <Link
+                      to={`/project/${project.id}`}
+                      className="text-[10px] font-black text-white uppercase tracking-[0.2em] hover:text-primary transition-colors flex items-center gap-2 group/btn"
+                    >
+                      Explore Case Study
+                      <span className="material-symbols-outlined text-[16px] group-hover/btn:translate-x-1 transition-transform">east</span>
+                    </Link>
                   </div>
-
-                  <Link
-                    to={`/project/${project.id}`}
-                    className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
-                  >
-                    Read More <FaArrowRight />
-                  </Link>
                 </div>
               </div>
-            ))
-          )}
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-20 flex justify-center">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link
+              to="/projects"
+              className="px-12 py-5 bento-card font-black text-xs uppercase tracking-[0.3em] flex items-center gap-4 hover:bg-white/5 group transition-all"
+            >
+              Launch Archive
+              <span className="material-symbols-outlined text-primary group-hover:rotate-45 transition-transform">rocket_launch</span>
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
+
 
 export default ProjectsShowcase;

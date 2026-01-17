@@ -1,98 +1,72 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { skills } from "../data/portfolioData";
 import { motion } from "framer-motion";
-
-gsap.registerPlugin(ScrollTrigger);
+import { skills } from "../data/portfolioData";
 
 const Skill = () => {
-  const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
+    return (
+        <section id="skills" className="section-padding relative overflow-hidden">
+            {/* Background Decor */}
+            <div className="glow-mesh opacity-50"></div>
+            <div className="ghost-text left-0 top-1/2 -translate-y-1/2 opacity-10">STACK</div>
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Staggered card animation
-      gsap.from(cardsRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
-        },
-        y: 100,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
-      });
-    }, sectionRef);
+            <div className="container mx-auto relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="mb-20 text-center md:text-left"
+                >
+                    <span className="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">Expertise</span>
+                    <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tighter">
+                        Tech <span className="text-gradient">Stack</span>
+                    </h2>
+                    <div className="w-16 h-1.5 bg-primary rounded-full md:mx-0 mx-auto"></div>
+                </motion.div>
 
-    return () => ctx.revert();
-  }, []);
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                    {skills.map((skill, index) => {
+                        const Icon = skill.icon;
+                        return (
+                            <motion.div
+                                key={skill.name}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: index * 0.05 }}
+                                className="bento-card group p-8 flex flex-col items-center justify-center relative hover:bg-white/5"
+                                title={skill.name}
+                            >
+                                {/* Tooltip Background Glow */}
+                                <div className="absolute inset-0 bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-  return (
-    <section
-      ref={sectionRef}
-      id="skills"
-      className="py-20 bg-slate-50 dark:bg-slate-800"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-4">
-            Skills & Expertise
-          </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-        </motion.div>
+                                <motion.div
+                                    whileHover={{ scale: 1.2, rotate: 5 }}
+                                    className="relative z-10"
+                                >
+                                    <Icon className="text-5xl md:text-6xl text-slate-500 group-hover:text-primary transition-colors duration-300" />
+                                </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {skills.map((category, index) => (
-            <div
-              key={index}
-              ref={(el) => (cardsRef.current[index] = el)}
-              className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-6 border-b border-slate-200 dark:border-slate-700 pb-2">
-                {category.category}
-              </h3>
-              <div className="space-y-6">
-                {category.items.map((skill, idx) => (
-                  <div key={idx}>
-                    <div className="flex justify-between items-center mb-2">
-                      <div className="flex items-center gap-3">
-                        <skill.icon className="text-2xl text-primary" />
-                        <span className="font-medium text-slate-700 dark:text-slate-300">
-                          {skill.name}
-                        </span>
-                      </div>
-                      <span className="text-sm text-slate-500 dark:text-slate-400">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                        className="bg-primary h-2.5 rounded-full"
-                      ></motion.div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                                <span className="mt-4 text-[10px] font-black text-slate-500 group-hover:text-white uppercase tracking-widest transition-colors relative z-10">
+                                    {skill.name}
+                                </span>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+
+                <div className="mt-24 flex justify-center">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className="inline-flex items-center gap-4 px-8 py-4 bento-card bg-primary/5 border-primary/20 text-slate-400 font-bold"
+                    >
+                        <span className="material-symbols-outlined text-primary animate-spin-slow">settings</span>
+                        <span className="text-sm tracking-wide uppercase">Engineered with modern standards</span>
+                    </motion.div>
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Skill;

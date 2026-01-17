@@ -6,127 +6,92 @@ import { motion } from "framer-motion";
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  const sectionRef = useRef(null);
-  const imageRef = useRef(null);
-  const statsRef = useRef([]);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Parallax effect on image
-      gsap.to(imageRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1,
-        },
-        y: -50,
-        ease: "none",
-      });
-
-      // Counter animation for stats
-      statsRef.current.forEach((stat) => {
-        if (stat) {
-          gsap.from(stat, {
-            scrollTrigger: {
-              trigger: stat,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-            innerText: 0,
-            duration: 2,
-            snap: { innerText: 1 },
-            ease: "power1.out",
-            onUpdate: function () {
-              stat.innerText = Math.ceil(this.targets()[0].innerText) + "+";
-            },
-          });
-        }
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="py-20 bg-white dark:bg-slate-900"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="relative section-padding overflow-hidden">
+      {/* Background Decor */}
+      <div className="ghost-text right-0 top-20 opacity-10">ABOUT</div>
+
+      <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-4">
-            About Me
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter">
+            <span className="text-gradient">ABOUT</span>
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+          <div className="w-16 h-1.5 bg-primary rounded-full"></div>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+          {/* Main Info Card */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex-1"
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-8 bento-card p-8 md:p-12 relative group overflow-hidden"
           >
-            <div className="overflow-hidden rounded-2xl h-120">
-              <img
-                ref={imageRef}
-                src="https://i.ibb.co.com/KcK0dLMC/PixVfba.jpg"
-                alt="Working"
-                className="rounded-2xl shadow-2xl w-full h-full object-contain"
-              />
+            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+              <span className="material-symbols-outlined text-9xl">menu_book</span>
             </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex-1"
-          >
-            <h3 className="text-2xl font-semibold text-slate-800 dark:text-white mb-4">
-              A journey of curiosity and code.
+
+            <h3 className="text-2xl md:text-3xl font-black text-white mb-8 tracking-tight">
+              Engineering pixel-perfect digital solutions with <span className="text-primary italic">purpose</span>.
             </h3>
-            <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              {personalInfo.about}
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                <h4
-                  ref={(el) => (statsRef.current[0] = el)}
-                  className="font-bold text-xl text-primary mb-1"
-                >
-                  3
-                </h4>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Years Experience
-                </p>
-              </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                <h4
-                  ref={(el) => (statsRef.current[0] = el)}
-                  className="font-bold text-xl text-primary mb-1"
-                >
-                  50
-                </h4>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Projects Completed
-                </p>
-              </div>
+
+            <div className="space-y-6 text-lg text-slate-400 leading-relaxed max-w-3xl">
+              <p>{personalInfo.about}</p>
+              <p>
+                I believe that great software is built at the intersection of robust engineering and human-centric design.
+                My goal is to create applications that don't just work, but delight.
+              </p>
             </div>
           </motion.div>
+
+          {/* Side Info Cards */}
+          <div className="lg:col-span-4 flex flex-col gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="bento-card p-8 flex-1 bg-primary/5 border-primary/20 relative group"
+            >
+              <div className="absolute top-4 right-4 text-primary opacity-20 group-hover:opacity-100 transition-opacity">
+                <span className="material-symbols-outlined">format_quote</span>
+              </div>
+              <p className="text-xl font-bold text-white leading-relaxed italic">
+                "Code is like humor. When you have to explain it, it’s bad."
+              </p>
+              <p className="mt-4 text-xs font-black text-primary uppercase tracking-widest">— Clean Code Mantra</p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="bento-card p-8 flex items-center gap-6 group hover:bg-neutral-900 transition-colors"
+            >
+              <div className="w-16 h-16 rounded-3xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-all transform group-hover:rotate-12">
+                <span className="material-symbols-outlined text-3xl">terminal</span>
+              </div>
+              <div>
+                <h4 className="text-white font-black text-xl tracking-tight">Self-Taught</h4>
+                <p className="text-slate-500 text-sm font-medium">Fueled by curiosity</p>
+              </div>
+            </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
   );
 };
+
 
 export default About;
